@@ -1,0 +1,7 @@
+commonLabels:
+  app: repro-ingress-issue
+
+resources:
+  - service-one.yml
+  - service-two.yml
+  - ingress.yml

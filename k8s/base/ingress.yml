@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: api
+  namespace: default
+spec:
+  rules:
+  - host: api.dev.tengable.com # *.dev.tengable.com resolves to 127.0.0.1
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          serviceName: service-one
+          servicePort: http

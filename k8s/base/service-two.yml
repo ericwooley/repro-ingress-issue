@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-two
+  labels:
+    app: service-two
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      name: http
+      protocol: TCP
+  selector:
+    app: service-two
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-two
+spec:
+  selector:
+    matchLabels:
+      app: service-two
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-two
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: service-two
+          image: issue-repro/express
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: NAME
+              value: 'service-two'
+            - name: PORT
+              value: '8080'
