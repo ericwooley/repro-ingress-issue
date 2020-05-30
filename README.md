@@ -4,8 +4,8 @@
 
 1. Create a minikube instance just for this
    1. `minikube start --driver=kvm2 -p issue-repro`
-   2. minikube addons enable ingress -p issue-repro
-   3. minikube addons enable dashbaord -p issue-repro
+   2. `minikube addons enable ingress -p issue-repro`
+   3. `minikube addons enable dashboard -p issue-repro`
 2. connect docker to minikube
    1. `eval $(minikube docker-env -p issue-repro)`
 3. docker build . --tag issue-repro/express
@@ -13,9 +13,9 @@
    1. `ssh -N -f -M -S /tmp/issue-repro-minikube-sock -L 8080:127.0.0.1:80 -i $(minikube ssh-key -p issue-repro) docker@$(minikube ip -p issue-repro)`
    2. `ssh -S /tmp/issue-repro-minikube-sock -O exit -i $(minikube ssh-key -p issue-repro) docker@$(minikube ip -p issue-repro)` to disconnect
 5. apply the k8s config
-   1. `kubectl apply -k k8s/base
+   1. `kubectl apply -k k8s/base`
 6. Open a browser and navigate to [api.dev.tengable.com:8080](http://api.dev.tengable.com:8080)
-7. Refresh repeatly, and you will see that the requests go to both service-one and service-two
+7. Refresh repeatedly, and you will see that the requests go to both service-one and service-two
 
 ## Versions
 minikube
